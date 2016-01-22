@@ -1,8 +1,8 @@
-##############################
-#                            #
-# ROSSMANN - SALES PREICTION #
-#                            #
-##############################
+###############################
+#                             #
+# ROSSMANN - SALES PREDICTION #
+#                             #
+###############################
 
 # ASSUMPTION: The required data files are downloaded from competition site and made available locally.
 
@@ -63,18 +63,18 @@ test$Response <- NULL
 classTreeModel <- train(Response ~ ., data = train, method = "rpart")
 
 # Predict response for aportioned train data
-trainresponse <- predict(classTreeModel, newdata = test)
+testpred <- predict(classTreeModel, newdata = test)
 
 # Validate prediction result with that of aportioned train data result 
-confusionMatrix(round(classTreePrediction), trainresponse)
+confusionMatrix(round(testpred), testresponse)
 
 ### Predict Response ###
 
 # Predict response for aportioned train data
 testallId <- testall$Id
 testall$Id <- NULL
-classTreePrediction <- predict(classTreeModel, newdata = testall)
+testallpred <- predict(classTreeModel, newdata = testall)
 
 # Create output file
-result <- data.frame(Id = testallId, Response = classTreePrediction)
+result <- data.frame(Id = testallId, Response = testallpred)
 write.csv(result, 'rpart-submission-1.csv', row.names = F, quote = F)
