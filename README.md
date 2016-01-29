@@ -14,7 +14,7 @@ Before participating in the above competitions, I analyzed the previous Kaggle c
 **Rossmann Store Sales**
 
   1. Recursive Partition Classification Tree - [Link](https://github.com/socratesk/kaggle/blob/master/Rossmann/1-Classification.R)
-  2. Random Forest - 
+  2. Random Forest - [Link](https://github.com/socratesk/kaggle/blob/master/Rossmann/2-RandonForest.R)
 
 **Walmart Recruiting**
 
