@@ -1,9 +1,9 @@
 ## Welcome to my Kaggle GitHub Page
-I created my Kaggle account in Apr 2015 but really started participating in competitions from November 2015. My first competition was predicting 'Rossmann Store Sales' that ran through mid-December 2015. My first submission to that competition on got errored out due to formatting issue. Then got hold of Sample submissions provided in the data set and it got accepted.
+I created my Kaggle account in Apr 2015 but really started participating in competitions from November 2015. My first competition was predicting 'Rossmann Store Sales' that ran through mid-December 2015. I tried basic Classification algorithm for my first submission to that competition to verify my position in Public Leader Board. Then slowly accelerated to other types of models.
 
 ## Competitions Participated
-* Rossmann Store Sales - Sales predicting competition. Competition status: Closed.
-* Walmart Recruiting: Trip Type Classification - Classification of Customer Trip to Walmart stores. Competition status: Closed.
+* Rossmann Store Sales - Sales predicting competition. Competition status: **Closed.**
+* Walmart Recruiting: Trip Type Classification - Classification of Customer Trip to Walmart stores. Competition status: **Closed.**
 * The Winton Stock Market Challenge - Predicting intra and end of day stock returns future. Competition status: On-going.
 * Prudential Life Insurance Assessment - Customer Risk classification on Life Insurance application. Competition status: On-going.
 * Telstra Network Disruptions -  Predict the severity of service disruptions on the network. Competition status: On-going.
