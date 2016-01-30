@@ -18,7 +18,7 @@ Before participating in the above competitions, I analyzed the previous Kaggle c
 
 **Walmart Recruiting**
   1. XGBoost with Feature Engineering - [Link](https://github.com/socratesk/kaggle/blob/master/Walmart-1/1-XGBoost-FeatureEngg.R)
-  2. XGBoost without Feature Engineering - [Link]
+  2. Random Forest with Feature Engineering - [Link](https://github.com/socratesk/kaggle/blob/master/Walmart-1/2-RandomForest-FeatureEngg.R)
   
 ## Focus
 Kaggle's recruiting competition prohibits participants to post their code in the forum and form a group or team. This helps each individual to exhibit their own idea and expertise in Data Science area - not hijacked by others idea. This really helps me evaluate where I stand, as an individual, when compared to other participants across the World. 
