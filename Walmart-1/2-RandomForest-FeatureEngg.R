@@ -122,4 +122,4 @@ res <- data.frame(VisitNumber = test[, 1], predMatrix)
 result <- aggregate(. ~ VisitNumber, data = res, FUN = mean)
 
 # Write to Output file
-write.csv(format(result, scientific = FALSE), '2-RandomForest.csv', row.names = F, quote = F) # Submission-5
+write.csv(format(result, scientific = FALSE), '2-RandomForest.csv', row.names = F, quote = F) # Submission-6
