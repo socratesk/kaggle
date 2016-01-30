@@ -4,7 +4,8 @@
 #   WALMART -TRIP TYPE CLASSIFICATION   #
 #                                       #
 #########################################
-# PRIVATE LB Score: 2.08247 (with 10 rounds); Rank 641/1047
+# PRIVATE LB Score: 2.08247 (with 10 rounds);  Rank 641/1047
+# PRIVATE LB Score: 1.97860 (with 200 rounds); Rank 624/1047
 
 # ASSUMPTION: The required data files are downloaded from competition site and made available locally.
 # COMPETITION SITE URL: https://www.kaggle.com/c/walmart-recruiting-trip-type-classification
