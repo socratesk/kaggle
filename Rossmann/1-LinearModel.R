@@ -72,9 +72,9 @@ cor(testsales, test$Sales)
 
 ### Apply model on actual Test data
 # Convert Categorical String values into Numerical in actual test data
-testdata$Open <- as.factor(testdata$Open)
-testdata$Promo<- as.factor(testdata$Promo)
-testdata$SchoolHoliday<- as.factor(testdata$SchoolHoliday)
+testdata$Open <- as.numeric(as.factor(testdata$Open))
+testdata$Promo<- as.numeric(as.factor(testdata$Promo))
+testdata$SchoolHoliday<- as.numeric(as.factor(testdata$SchoolHoliday))
 
 # Format testdata's Date String into Date Object
 testdata$Date <- as.Date(testdata$Date, format="%m/%d/%y")
@@ -94,9 +94,14 @@ testdata$years <- year(testdata$Date)
 # Predict the Sales value
 salesdata <- predict(salesmodel, newdata=testdata)
 
+# Impute NA if any with median sales
+salesdata[is.na(salesdata)] <- median(salesdata, na.rm = TRUE)
+
 ### Output
 # Create data frame with Id and predicted values
-salesdatadf <- as.data.frame(Id = seq(1: 41088), Sales = round(salesdata))
+salesdatadf <- data.frame(Id = seq(1: 41088), Sales = round(salesdata))
 
 # Write to Output file
 write.csv(salesdatadf, file = "1-LinearModel.csv", row.names = F, quote = F)
+
+# Being basic Linear model, this scored 0.61328 in Private LB
