@@ -23,7 +23,7 @@ Before participating in the above competitions, I analyzed the previous Kaggle c
   2. Random Forest with Feature Engineering - [Link](https://github.com/socratesk/kaggle/blob/master/Walmart-1/2-RandomForest-FeatureEngg.R)
 
 **The Winton Stock Market Challenge**
-  1. Median replacement - R Code(); Java Code()
+  1. Median replacement - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/1-MedianRepl.R); [Java Code](https://github.com/socratesk/kaggle/blob/master/Winton/1_Output.java)
   2. Moving average on Test data - R Code(); Java Code-1(); R Code(); Java Code-2()
 
 ## Focus
