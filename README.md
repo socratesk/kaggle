@@ -12,13 +12,19 @@ I created my Kaggle account in Apr 2015 but really started participating in comp
 Before participating in the above competitions, I analyzed the previous Kaggle competitions and user scripts. Predominantly, 'XGBoost' was used for single model submissions in both competitions. So I tried 'XGBoost' to start with and ensembles of XGBoost, Random Forest, Neural Network, Classification, and GBM.
 
 **Rossmann Store Sales**
+  1. Linear Model - [Link](https://github.com/socratesk/kaggle/blob/master/Rossmann/1-LinearModel.R)
 
-  1. Recursive Partition Classification Tree - [Link](https://github.com/socratesk/kaggle/blob/master/Rossmann/1-Classification.R)
-  2. Random Forest - [Link](https://github.com/socratesk/kaggle/blob/master/Rossmann/2-RandonForest.R)
+**Prudential Life Insurance**
+  1. Recursive Partition Classification Tree - [Link](https://github.com/socratesk/kaggle/blob/master/Prudential/1-Classification.R)
+  2. Random Forest - [Link](https://github.com/socratesk/kaggle/blob/master/Prudential/2-RandomForest.R)
 
 **Walmart Recruiting**
   1. XGBoost with Feature Engineering - [Link](https://github.com/socratesk/kaggle/blob/master/Walmart-1/1-XGBoost-FeatureEngg.R)
   2. Random Forest with Feature Engineering - [Link](https://github.com/socratesk/kaggle/blob/master/Walmart-1/2-RandomForest-FeatureEngg.R)
-  
+
+**The Winton Stock Market Challenge**
+  1. Median replacement - R Code(); Java Code()
+  2. Moving average on Test data - R Code(); Java Code-1(); R Code(); Java Code-2()
+
 ## Focus
 Kaggle's recruiting competition prohibits participants to post their code in the forum and form a group or team. This helps each individual to exhibit their own idea and expertise in Data Science area - not hijacked by others idea. This really helps me evaluate where I stand, as an individual, when compared to other participants across the World. 
