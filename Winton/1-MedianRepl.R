@@ -31,4 +31,4 @@ testall <- read.csv("test_2.csv", stringsAsFactors=FALSE)  # 120000 x 147
 df <- as.data.frame(paste0("_", seq(1:61), ",", apply(trainall[, 147:208], FUN = median, MARGIN = 2)))
 
 # Write the data frame to an intermediary Java file 
-write.table(df, "result1.txt", row.names=F, quote = F)
+write.table(df, "result.txt", row.names=F, quote = F)
