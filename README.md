@@ -24,7 +24,8 @@ Before participating in the above competitions, I analyzed the previous Kaggle c
 
 **The Winton Stock Market Challenge**
   1. Median replacement - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/1-MedianRepl.R); [Java Code](https://github.com/socratesk/kaggle/blob/master/Winton/1_Output.java)
-  2. Moving average on Test data - R Code(); Java Code-1(); R Code(); Java Code-2()
+  2. Median replacement 3% Adjusted - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/2-Adjusted_3perc_MedianRepl.R)
+  3. Moving average on Test data - R Code(); Java Code-1(); R Code(); Java Code-2()
 
 ## Focus
 Kaggle's recruiting competition prohibits participants to post their code in the forum and form a group or team. This helps each individual to exhibit their own idea and expertise in Data Science area - not hijacked by others idea. This really helps me evaluate where I stand, as an individual, when compared to other participants across the World. 
