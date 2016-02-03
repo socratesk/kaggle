@@ -13,6 +13,7 @@ Before participating in the above competitions, I analyzed the previous Kaggle c
 
 **Rossmann Store Sales**
   1. Linear Model - [Link](https://github.com/socratesk/kaggle/blob/master/Rossmann/1-LinearModel.R)
+  2. XGBoost with Feature Engineering - [Link](https://github.com/socratesk/kaggle/blob/master/Rossmann/2-XGBoost-FeatureEngg.R)
 
 **Prudential Life Insurance**
   1. Recursive Partition Classification Tree - [Link](https://github.com/socratesk/kaggle/blob/master/Prudential/1-Classification.R)
