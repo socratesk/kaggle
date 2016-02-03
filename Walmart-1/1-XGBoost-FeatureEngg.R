@@ -31,7 +31,7 @@ train <- read.csv('train.csv', header = T, stringsAsFactors = FALSE)
 test <- read.csv('test.csv', header = T, stringsAsFactors = FALSE)
 
 
-### Exploratory Data Analysis and Data Clensing
+### Exploratory Data Analysis and Data Cleansing
 # Identify missing entries between train and test data sets and remove them
 setdiff(unique(train$DepartmentDescription), unique(test$DepartmentDescription))
 
@@ -105,7 +105,7 @@ param <- list('objective' = 'multi:softprob',
 		  'eval_metric' = 'mlogloss',
 		  'num_class' = noOfClasses)
 
-# Initialise number of rounds and folds. Try with a bigger number initially, and perform cross-validation.
+# Initialize number of rounds and folds. Try with a bigger number initially, and perform cross-validation.
 # This is required to identify 'Global-minimum' instead of getting stuck with 'Local-minimum'
 cv.round <- 200
 cv.nfold <- 5
@@ -117,7 +117,7 @@ xgbcv <- xgb.cv(param = param, data = trainMatrix,
 			label = Target, nrounds = cv.round, 
 			nfold = cv.nfold)
 
-# Plot to visualise how the cross-validation is performing
+# Plot to visualize how the cross-validation is performing
 # plot(xgbcv$test.mlogloss.mean, type='l')
 
 # Determine 'Global-minimum' number of rounds required for the model
@@ -145,7 +145,7 @@ colnames(predMatrix) <- paste("TripType_", targetdf$target, sep="")
 # Combine column header and predicted values as data frame
 res <- data.frame(VisitNumber = test[, 1], predMatrix)
 
-# Perfrom aggregation on Visit number by taking 'average'
+# Perform aggregation on Visit number by taking 'average'
 result <- aggregate(. ~ VisitNumber, data = res, FUN = mean)
 
 # Write to Output file
