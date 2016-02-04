@@ -112,8 +112,8 @@ cv.nfold <- 5
 ### Model Generation 
 # Perform Cross-validation using the above params and objects 
 xgbcv <- xgb.cv(data = merged_train_matrix, label = Sales, 
-				nrounds = cv.round, param = param, 
-				nfold = cv.nfold, metrics=list("rmse","auc"))
+			nrounds = cv.round, param = param, 
+			nfold = cv.nfold, metrics=list("rmse","auc"))
 			
 # Plot to visualize how the cross-validation is performing 
 # plot(xgbcv$test.mlogloss.mean, type='l') 
@@ -121,7 +121,7 @@ xgbcv <- xgb.cv(data = merged_train_matrix, label = Sales,
 # Determine 'Global-minimum' number of rounds required for the model 
 nround <- which(xgbcv$test.mlogloss.mean == min(xgbcv$test.mlogloss.mean) ) 
 
-# Train a model using XGBoost and the above params / objects
+# Train a model using XGBoost Train and the above params / objects. Include advanced params
 xgb  <- xgb.train(  data            = merged_train_matrix,
                     params          = param,
                     nrounds         = nround,
@@ -142,7 +142,7 @@ merged_test$Id <- NULL
 merged_test_matrix <- as.matrix(merged_test)
 
 # Predict Sales
-ypred <- predict(xgb_model, merged_test_matrix)
+ypred <- predict(xgb, merged_test_matrix)
 
 # Computed sales value will be in logarithmic format. Convert it to actual value
 ypred <- expm1(ypred)
