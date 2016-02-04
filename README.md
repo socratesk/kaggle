@@ -24,6 +24,16 @@ Before participating in the above competitions, I analyzed the previous Kaggle c
   2. Random Forest with Feature Engineering - [Link](https://github.com/socratesk/kaggle/blob/master/Walmart-1/2-RandomForest-FeatureEngg.R)
 
 **The Winton Stock Market Challenge**
+
+Working in this competition was bit more challenging than others due to the file size and volume of data.
+
+Train data set: 40000 rows x 211 features. File size: 173 MB
+
+Test data set: 120000 rows x 147 features. File size: 282 MB
+
+
+With initial model, preparation of output file was taking hours, with initial model. So had to findout alternate ways to process them faster. To do that task, ended-up developing Java code 
+
   1. Median replacement - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/1-MedianRepl.R); [Java Code](https://github.com/socratesk/kaggle/blob/master/Winton/1_Output.java)
   2. Median replacement 3% Adjusted - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/2-Adjusted_3perc_MedianRepl.R)
   3. Moving average on Test data - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/3-MovingAverage.R); [Java Code](https://github.com/socratesk/kaggle/blob/master/Winton/3_Csvfile.java)
