@@ -30,7 +30,7 @@ Working in this competition was bit more challenging than others due to the file
 * Test data set: 120000 rows x 147 features. File size: 282 MB
 
 
-With initial model, preparation of output file was taking hours, with initial model. So had to findout alternate ways to process them faster. To do that task, ended-up developing Java code 
+With initial model, preparation of output file was taking hours to process. So had to findout alternate ways to process them faster. To do that task, ended-up developing Java code 
 
   1. Median replacement - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/1-MedianRepl.R); [Java Code](https://github.com/socratesk/kaggle/blob/master/Winton/1_Output.java)
   2. Median replacement 3% Adjusted - [R Code](https://github.com/socratesk/kaggle/blob/master/Winton/2-Adjusted_3perc_MedianRepl.R)
