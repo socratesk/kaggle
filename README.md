@@ -28,7 +28,6 @@ Before participating in the above competitions, I analyzed the previous Kaggle c
 Working in this competition was bit more challenging than others due to the file size and volume of data.
 
 Train data set: 40000 rows x 211 features. File size: 173 MB
-
 Test data set: 120000 rows x 147 features. File size: 282 MB
 
 
