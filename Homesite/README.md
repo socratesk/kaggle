@@ -11,3 +11,4 @@ For ensemble, I split the Train data into two parts. Applied all the above techn
 Then used XGBoost technique in the second part of train data set (containing new predicted values from previous models) and arrived at the final model. Applied this final model on Test data set to arrive at final prediction.
 My approach in the form of visual representation …
 
+![homesite](https://cloud.githubusercontent.com/assets/8042997/12953071/8da9eb10-cfde-11e5-8874-5d4d4883c6e0.png)
