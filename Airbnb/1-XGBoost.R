@@ -5,7 +5,8 @@
 ##########################################
 
 # ASSUMPTION: The required data files are downloaded from competition site and made available locally.
-# COMPETITION SITE URL: https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings 
+# COMPETITION SITE URL: https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings
+# PRIVATE LB SCORE: 0.87004 (would place you to 505 out of 1463)
 
 # Perform house-keeping
 rm(list=ls())
@@ -127,10 +128,11 @@ y_pred <- as.data.frame(matrix(y_pred, nrow = num.class))
 # Assign row names to the dataframe
 rownames(y_pred) <- c('NDF','US','other','FR','CA','GB','ES','IT','PT','NL','DE','AU')
 
-# The Submission requires top 5 probable countries for each user. To do that,
-# a. Apply sort function to sort all the column values, 
+# The Submission requires top 5 probable countries for each user. To arrive at that,
+# a. Apply sort function to sort all the column values 
 # b. Take first 5 values (classes) from sorted column
-# c. Get corresponding row-names for each column 
+# c. Get corresponding row-names for each column
+# d. Convert them into vector to easily attach in dataframe
 first_5_result <- as.vector(apply(y_pred, 2, function(x) names(sort(x)[12:8])))
 
 # Repeat each user ID for 5 times 
