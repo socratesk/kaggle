@@ -1,7 +1,7 @@
 ## Welcome to my Kaggle GitHub Page
-I created my Kaggle account in Apr 2015 but really started participating in competitions from November 2015. My first competition was predicting 'Rossmann Store Sales' that ran through mid-December 2015. My first submission was predicting Store Sales using basic Classification algorithm. Then used Random Forest and ensemble of both to get more traction on the competition. Then slowly accelerated to other types of models.
+I created my Kaggle account in Apr 2015 but really started participating in competitions from November 2015. My first competition was predicting 'Rossmann Store Sales' that ran through mid-December 2015. My first submission was using basic Classification algorithm. Then used Random Forest and ensemble of both to get traction on the competitions.
 
-## Competitions Participated
+## Competitions participated
 * Rossmann Store Sales - Sales predicting competition. Competition status: **Closed.**
 * Walmart Recruiting: Trip Type Classification - Classification of Customer Trip to Walmart stores. Competition status: **Closed.**
 * The Winton Stock Market Challenge - Predicting intra and end of day stock returns future. Competition status: **Closed.**
