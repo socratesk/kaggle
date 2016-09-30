@@ -43,7 +43,7 @@ traindata$months <- month(traindata$Date)
 # Extract years from Date and create a new variable
 traindata$years <- year(traindata$Date)
 
-# Split tran data into train and test data sets
+# Split train data into train and test data sets
 split <- sample.split(traindata$Store, SplitRatio = 0.75)
 
 # Create train data set to generate Model
@@ -52,7 +52,7 @@ train <- subset(traindata, split == TRUE)
 # Create test data set to perform cross validation
 test <- subset(traindata, split == FALSE)
 
-# Remove CustomerID as this feature does not have any importance
+# Remove CustomerID since this feature does not have any importance
 train <- subset(train, select = -Customers)
 
 
@@ -76,7 +76,7 @@ testdata$Open <- as.numeric(as.factor(testdata$Open))
 testdata$Promo<- as.numeric(as.factor(testdata$Promo))
 testdata$SchoolHoliday<- as.numeric(as.factor(testdata$SchoolHoliday))
 
-# Format testdata's Date String into Date Object
+# Format test data's Date String into Date Object
 testdata$Date <- as.Date(testdata$Date, format="%m/%d/%y")
 testdata$Date <- ymd(testdata$Date)
 
