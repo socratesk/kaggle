@@ -147,5 +147,9 @@ ypred <- predict(xgb, merged_test_matrix)
 # Computed sales value will be in logarithmic format. Convert it to actual value
 ypred <- expm1(ypred)
 
+### Output
+# Create a Data frame with ID and Prediction
 salesdata <- data.frame(Id=Id, Sales=ypred)
-write.csv(salesdata, row.names = F, quote = F, file = "salesresult.csv")
+
+# Write to Output file
+write.csv(salesdata, row.names = F, quote = F, file = "3-XGBoost.csv")
