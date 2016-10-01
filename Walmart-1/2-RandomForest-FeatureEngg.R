@@ -14,10 +14,10 @@ gc()
 # Set working directory
 setwd("C:/courses/kaggle/Walmart")
 
-# Load Packages required for xgboost
-library(doParallel)
+# Load Packages required for Random Forest
+#library(doParallel)
 library(randomForest)
-library(foreach)
+#library(foreach)
 library(caret)
 
 # Set seed for reproducibility
@@ -32,7 +32,7 @@ test <- read.csv('test.csv', header = T, stringsAsFactors = FALSE)
 # Identify missing entries between train and test data sets and remove them
 setdiff(unique(train$DepartmentDescription), unique(test$DepartmentDescription))
 
-# Remove the Department that is NOT existing in Test data set
+# Remove Department that is NOT existing in Test data set
 train <- train[! train$DepartmentDescription == "HEALTH AND BEAUTY AIDS", ]
 
 # Impute 1 to missing values [NA] for Upc feature
