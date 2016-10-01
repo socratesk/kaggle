@@ -83,7 +83,7 @@ train$TripType <- NULL
 ### Model Generation
 # Prepare Train Control 
 # Do performance tuning by adjusting 'number of folds', CV Repeats or by adding more params
-tcontrol <- trainControl(method = "repeatedcv", number = 4, repeats = 2, verboseIter = FALSE, returnResamp = "all", classProbs = TRUE)
+trcontrol <- trainControl(method = "repeatedcv", number = 4, repeats = 2, verboseIter = FALSE, returnResamp = "all", classProbs = TRUE)
 
 # Determine Number of Classes to be predicted - Will be used for model generation.
 RF_MTRY = length(unique(Target))
@@ -96,7 +96,7 @@ RF_TREES = 225
 tGrid <- expand.grid(mtry = RF_MTRY)
 
 # Develop a model using Random Forest and the above params / objects 
-rf_model <- train(x = train, y = target, method = "rf",  trControl = fc, tuneGrid = tGrid, metric = "Accuracy", ntree = RF_TREES)
+rf_model <- train(x = train, y = target, method = "rf",  trControl = trcontrol, tuneGrid = tGrid, metric = "Accuracy", ntree = RF_TREES)
 
 
 ### Prediction
