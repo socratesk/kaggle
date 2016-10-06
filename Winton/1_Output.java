@@ -7,7 +7,7 @@ public class 1_Output {
         String fileName = "result.txt";
 		
 		// Output CSV file 
-		String opFileName = "1-MedianRepl.csv.csv";
+		String opFileName = "1-MedianRepl.csv";
 		
 		String line = null;
         try {
