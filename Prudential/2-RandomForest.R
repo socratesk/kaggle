@@ -66,7 +66,7 @@ test$Response <- NULL
 
 
 ### Develop Model ###
-# Develope Recursive-Partition (rpart) Classification Tree Model
+# Develop Random Forest Model
 rfmodel <- train(Response ~ ., data = train[, -ncol(train)], method = "rf")
 
 
