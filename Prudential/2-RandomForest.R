@@ -25,10 +25,10 @@ set.seed(23456)
 trainall <- read.csv("train.csv", stringsAsFactors=FALSE) # 59381
 testall <- read.csv("test.csv", stringsAsFactors=FALSE)   # 19765
 
-# Have this handy. WIll be usefule later
+# Have this handy. Will be useful later
 trainallRowNum <- nrow(trainall) 
 
-# Introduce Response field to combine Train and Test
+# Introduce Response feature to combine Train and Test
 testall$Response <- 0 
 
 # Combine Train and Test data sets into one
@@ -46,7 +46,7 @@ fulldata[is.na(fulldata)] <- 0
 trainall <- fulldata[1:trainallRowNum, ]
 testall <-  fulldata[-(1:trainallRowNum), ]
 
-# Remove the Variable that got intriduced before combining.
+# Remove the Variable that got introduced before combining.
 testall$Response <- NULL
 
 # Clean-up unused dataframe
