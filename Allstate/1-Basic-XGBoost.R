@@ -36,17 +36,17 @@ train$loss <- 1/log(train$loss + 1)
 
 # Split train data to have validation dataset using createDataPartition (caret package) 
 trainindex <- createDataPartition(train$id, p=0.8, list=FALSE)
-train80 <- train[ trainindex, ]
-valid20 <- train[-trainindex, ]
+train80	   <- train[ trainindex, ]
+valid20    <- train[-trainindex, ]
 
 # Extract actual loss from Validation dataset for future comparison
 valid20_loss	<- exp(1/valid20$loss)-1
 
 # Remove unused features from datasets
-train80$id 		<- NULL
-valid20$id		<- NULL
+train80$id 	<- NULL
+valid20$id	<- NULL
 valid20$loss	<- NULL
-test$id			<- NULL
+test$id		<- NULL
 
 ## XGBoost Algorithm starts here ##
 # Create a string for Response variable
@@ -60,24 +60,24 @@ nfold	<- 6
 nrounds	<- 2500
 
 # Create Parameter list to be passed to XGBoost Algorithm
-param <- list(objective 	= "reg:linear",
-			nthread 		= 4,
-			eta       		= 0.3,
-			booster			= "gbtree",
-			max_depth 		= 10,
-			subsample 		= 0.75,
-			colsample_bytree = 0.8,
-			min_child_weight = 1.05
-		 )
+param <- list(	objective 	 = "reg:linear",
+		nthread 	 = 4,
+		eta       	 = 0.3,
+		booster		 = "gbtree",
+		max_depth 	 = 10,
+		subsample 	 = 0.75,
+		colsample_bytree = 0.8,
+		min_child_weight = 1.05
+	   )
 
 # Develop a model with train dataset
-xgbtrain <- xgb.train(data   = train80_matrix,
-					depth    = 10,
-					nrounds  = nrounds, 
-					param 	 = param,
-					verbose  = 1,
-					early_stopping_round = 25
-           )
+xgbtrain <- xgb.train(	data	= train80_matrix,
+			depth   = 10,
+			nrounds = nrounds, 
+			param 	= param,
+			verbose = 1,
+			early_stopping_round = 25
+          	     )
 
 # Apply the model on validation dataset and Predict the loss outcome
 valid20_y_hat 	<- predict(xgbtrain, data.matrix(valid20))
@@ -94,6 +94,6 @@ y_hat <- predict(xgbtrain, data.matrix(test))
 y_hat <- exp(1/y_hat) - 1
 
 # Create Submission file
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- y_hat
 write.csv(submission, "Submission-1-Basic-XGBoost", row.names = FALSE)
