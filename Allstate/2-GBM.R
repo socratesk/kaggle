@@ -37,7 +37,7 @@ train$loss <- 1/log(train$loss + 1)
 # Assign all the features to a variable
 features = names(train)
  
-# Convert character features to numerical factor features
+# Convert character features to numerical factors
 for (f in features) {
   if (class(train[[f]])=="character") {
     levels <- sort(unique(train[[f]]))
@@ -54,33 +54,33 @@ valid20 <- train[-trainindex, ]
 valid20_loss	<- exp(1/valid20$loss)-1
 
 # Remove unused features from datasets
-train80$id 		<- NULL
-valid20$id		<- NULL
+train80$id 	<- NULL
+valid20$id	<- NULL
 valid20$loss	<- NULL
-test$id			<- NULL
+test$id		<- NULL
 
 # Set no of trees
 numtrees <- 1600
 
 # Train Generalised Boosted Regression Model (GBM)
-gbm_model <- gbm(formula 		= loss ~ .,
-				distribution 	= "gaussian",
-				data 			= train80,
-				n.trees 		= numtrees,
-				n.cores 		= 4,
-				n.minobsinnode 	= 10,		# Minm observations in node
-				shrinkage 		= 0.002,	# Learning Rate
-				bag.fraction 	= 0.5,
-				train.fraction 	= 0.8,
-				cv.folds 		= 5,		# 5 Fold Cross-Validation
-				keep.data 		= TRUE,
-				verbose 		= TRUE,
-				class.stratify.cv = NULL,
-				interaction.depth = 1		# 1: Additive, 2: 2-way interaxns
-				)
+gbm_model <- gbm(formula 	= loss ~ .,
+		distribution 	= "gaussian",
+		data 		= train80,
+		n.trees 	= numtrees,
+		n.cores 	= 4,
+		n.minobsinnode 	= 10,		# Minm observations in node
+		shrinkage 	= 0.002,	# Learning Rate
+		bag.fraction 	= 0.5,
+		train.fraction 	= 0.8,
+		cv.folds 	= 5,		# 5 Fold Cross-Validation
+		keep.data 	= TRUE,
+		verbose 	= TRUE,
+		class.stratify.cv = NULL,
+		interaction.depth = 1		# 1: Additive, 2: 2-way interaxns
+	       )
 
 # Choose best iteration from trained model 
-best_iter <- gbm.perf(gbm_model, method="OOB") 	# Perf check using Out-Of-Bag estimator
+best_iter <- gbm.perf(gbm_model, method="OOB") 	# Perf check using Out-Of-Bag Estimator
 
 # Apply the model on validation dataset and Predict the loss outcome
 valid20_y_hat 	<- predict(gbm_model, newdata=valid20, best_iter)
@@ -97,6 +97,6 @@ y_hat <- predict(gbm_model, newdata=test, best_iter)
 y_hat <- exp(1/y_hat) - 1
 
 # Create Submission file
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission      <- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- y_hat
 write.csv(submission, "Submission-2-GBM", row.names = FALSE)
