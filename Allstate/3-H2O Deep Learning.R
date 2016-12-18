@@ -58,18 +58,18 @@ h2o.init(nthreads = -1, max_mem_size = "16g") # -1: Use all CPUs on host
 train80_h2o 	<- as.h2o(train80)
 valid20_h2o 	<- as.h2o(valid20)
 valid20_pred_h2o<- as.h2o(valid20[, -total_cols])
-test_h2o 		<- as.h2o(test)
+test_h2o 	<- as.h2o(test)
 
 ## Create H2O DeepLearning model. Function created for repeatable use.
 train_h2o_nn_model <- function(epochs, hidden_layer, distribution, activation, run) {
 	h2o_nn_model <- h2o.deeplearning(
-				x			= 1:total_cols-1, 
-				y			= total_cols, 
+				x		= 1:total_cols-1, 
+				y		= total_cols, 
 				training_frame	= train80_h2o, 
-				validation_frame	= valid20_h2o,
+				validation_frame= valid20_h2o,
 				epochs		= epochs,	
 				stopping_rounds	= 2,
-				activation		= activation,
+				activation	= activation,
 				distribution	= distribution,
 				hidden		= hidden_layer,
 				overwrite_with_best_model = T
@@ -99,6 +99,6 @@ y_hat5 <- as.matrix(train_h2o_nn_model(20, c(91,91), "huber", "Rectifier", 5))
 y_hat_pred <- (y_hat1 + y_hat2 + y_hat3 + y_hat4 + y_hat5)/5
 
 # Create Submission file
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- y_hat_pred
 write.csv(submission, "Submission_3_H2O_DeepLearn-Ensemble", row.names = FALSE)
