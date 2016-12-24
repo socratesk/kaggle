@@ -88,12 +88,12 @@ total_cols	<- ncol(train)
 
 # Create Parameter list to be passed to NeuralNet Algorithm
 params_nn <- list(
-				learning.rate	= 0.0001,
-				momentum		= 0.9,
-				batch.size		= 100,
-				wd 				= 0,
-				num.round		= 200
-			)
+		learning.rate	= 0.0001,
+		momentum	= 0.9,
+		batch.size	= 100,
+		wd 		= 0,
+		num.round	= 200
+	      )
 
 # Create palce-holder list object
 predictions<- list()
@@ -127,19 +127,19 @@ neuralnet_model <- function(train_fold, valid_fold, params, no_round) {
 
   # Create a Model
   m <- mx.model.FeedForward.create(outp, 
-						X = data.matrix(t(train_fold[, -total_cols])),
-						y = 		      train_fold[,  total_cols],
-                                    eval.data =
-                                    list(data = data.matrix(t(valid_fold[, -total_cols])),
-                                         label = valid_fold[,  total_cols]),
+				   X = data.matrix(t(train_fold[, -total_cols])),
+				   y = train_fold[,  total_cols],
+                                   eval.data    =
+                                    list(data   = data.matrix(t(valid_fold[, -total_cols])),
+                                         label  = valid_fold[,  total_cols]),
                                    array.layout = 'colmajor',
                                    eval.metric	= mx.metric.mae,
                                    learning.rate= params$learning.rate,
                                    momentum 	= params$momentum,
-                                   wd 			= params$wd,
+                                   wd 		= params$wd,
                                    num.round 	= params$num.round,
-						ctx=mx.cpu(),
-						array.batch.size = params$batch.size
+				   ctx		= mx.cpu(),
+				   array.batch.size = params$batch.size
 				 )
   
   # Predict "loss" for validation data set
@@ -152,10 +152,10 @@ neuralnet_model <- function(train_fold, valid_fold, params, no_round) {
   pred_test  <- exp(t(predict(m, data.matrix(t(test)), array.layout = 'colmajor'))) - 1
   
   # Compute MAE for validation data set
-  MAE_valid <- mean(abs(pred_valid - valid_fold[, total_cols]))
+  MAE_valid <- calculateMAE(pred_valid, valid_fold[, total_cols])
   
   # Compute MAE for Train data set
-  MAE_train <- mean(abs(pred_train - train_fold[, total_cols]))
+  MAE_train <- calculateMAE(pred_train, train_fold[, total_cols])
   
   # Print MAE values
   print(paste0("Model ", no_round, ". MAE Validation: ", MAE_valid, ". MAE Train: ", MAE_train, ". \n"))
@@ -166,20 +166,20 @@ neuralnet_model <- function(train_fold, valid_fold, params, no_round) {
 # Create 10 fold model and predict "loss" values 
 for (i in 1:no_folds) {
   predictions[[i]] <- neuralnet_model(
-						train_fold = train[-folds[i][[1]], ],
-						valid_fold = train[ folds[i][[1]], ],
-						params = params_nn,
-						no_round = i
+			train_fold 	= train[-folds[i][[1]], ],
+			valid_fold 	= train[ folds[i][[1]], ],
+			params 		= params_nn,
+			no_round 	= i
                       )
 }
 
 # Create Submission file for single model
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- predictions[1]
 write.csv(submission, "Submission-4-MxNet-Single.csv", row.names = FALSE, quote=FALSE)
 
 # Create Submission file for average of all the models
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- apply(predictions, 1, function(x) { mean(x, na.rm=TRUE) })
 write.csv(submission, "Submission-4-MxNet-Mean.csv", row.names = FALSE, quote=FALSE)
 
