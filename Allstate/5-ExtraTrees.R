@@ -68,22 +68,21 @@ for (colnm in trainColNames) {
 full <- dummy.data.frame(fulldata, names=charcols, sep="_")
 
 # Remove fulldata from memory
-fulldata 	<- NULL
+fulldata <- NULL
 
 # Split train and test data sets
 train 	 <- full[full$loss > 0,  ]
 test 	 <- full[full$loss == 0, ]
 
 # Normalize data. Add 1 to given value to eliminate zeros if any. Take Log
-train$loss 	<- log(train$loss + 1)
+train$loss <- log(train$loss + 1)
 
 # Remove unused objects and features from datasets to relinquish memory
 test$id		<- NULL
 test$loss 	<- NULL
-
 full 		<- NULL
 charcols	<- NULL
-trainColNames <- NULL
+trainColNames 	<- NULL
 
 # Split train data to have validation dataset using createDataPartition (caret package) 
 trainindex 	<- createDataPartition(train$id, p=0.85, list=FALSE)
@@ -94,13 +93,13 @@ valid15 	<- train[-trainindex, ]
 train85$id	<- NULL
 valid15$id	<- NULL
 train		<- NULL
-trainindex  <- NULL
+trainindex  	<- NULL
 
 # Define parameters
-nodesize 		<- 6
+nodesize 	<- 6
 numRandomCuts 	<- 3
-numThreads		<- 4
-ntree			<- 800
+numThreads	<- 4
+ntree		<- 800
 
 # Extract total no of features as it will be reused many times
 total_cols	<- ncol(train85)
@@ -112,13 +111,13 @@ predictions	<- list()
 extraTrees_model <- function(node, numRandCuts, numThreads, ntree) {
 
   # Model creation
-	m <- extraTrees(x 				= train85[, -total_cols],
-					y 				= train85[,  total_cols],
-					nodesize 		= node,
-					numRandomCuts 	= numRandCuts,
-					numThreads		= numThreads,
-					ntree			= ntree	
-				   )
+  m <- extraTrees(x		= train85[, -total_cols],
+		  y 		= train85[,  total_cols],
+		  nodesize 	= node,
+		  numRandomCuts = numRandCuts,
+		  numThreads	= numThreads,
+		  ntree		= ntree	
+		)
   
   # Predict "loss" for validation data set
   pred_valid <- exp(predict(m, valid15[, -total_cols])) - 1
@@ -128,7 +127,6 @@ extraTrees_model <- function(node, numRandCuts, numThreads, ntree) {
   
   # Predict "loss" for Test data set
   pred_test  <- exp(predict(m, test)) - 1
-  
   
   # Compute MAE for validation data set
   MAE_valid <- calculateMAE(pred_valid, valid15[, total_cols])
@@ -148,11 +146,11 @@ for (i in 1:numRandomCuts) {
 }
 
 # Create Submission file for single model
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- predictions[1]
 write.csv(submission, "Submission-5-ExtraTree-ThirdTree.csv", row.names = FALSE, quote=FALSE)
 
 # Create Submission file for average of all the models
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- apply(predictions, 1, function(x) { mean(x, na.rm=TRUE) })
 write.csv(submission, "Submission-4-ExtraTree-Mean.csv", row.names = FALSE, quote=FALSE)
