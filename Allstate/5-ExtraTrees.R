@@ -151,6 +151,6 @@ submission$loss <- predictions[1]
 write.csv(submission, "Submission-5-ExtraTree-ThirdTree.csv", row.names = FALSE, quote=FALSE)
 
 # Create Submission file for average of all the models
-submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- apply(predictions, 1, function(x) { mean(x, na.rm=TRUE) })
 write.csv(submission, "Submission-4-ExtraTree-Mean.csv", row.names = FALSE, quote=FALSE)
