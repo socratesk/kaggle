@@ -45,13 +45,13 @@ getMAE <- function(preds, dtrain) {
 shft <- 200
  
 # Prepare list of categorical variables that are significant for prediction.
-categoryList <- c(	"cat1","cat2","cat3","cat4","cat5",
-					"cat6","cat7","cat9","cat10","cat11",
-					"cat12","cat13","cat14","cat16","cat23",
-					"cat24","cat25","cat28","cat36","cat38",
-					"cat40","cat50","cat57","cat72","cat73",
-					"cat76","cat79","cat80","cat81","cat82",
-					"cat87","cat89","cat90","cat103","cat111")
+categoryList <- c("cat1","cat2","cat3","cat4","cat5",
+		  "cat6","cat7","cat9","cat10","cat11",
+		  "cat12","cat13","cat14","cat16","cat23",
+		  "cat24","cat25","cat28","cat36","cat38",
+		  "cat40","cat50","cat57","cat72","cat73",
+		  "cat76","cat79","cat80","cat81","cat82",
+		  "cat87","cat89","cat90","cat103","cat111")
  
  # Create cartesian product of Category variables.
 categoryList <- merge(data.frame(f1 = categoryList), data.frame(f2 = categoryList))
@@ -79,8 +79,8 @@ fulldata <- rbind(traindata, testdata)
 
 # Create new categorical variables
 for (f in 1:nrow(categoryList)) {
-  f1 <- categoryList[f, f1]
-  f2 <- categoryList[f, f2]
+  f1  <- categoryList[f, f1]
+  f2  <- categoryList[f, f2]
   vrb <- paste(f1, f2, sep = "_")
   fulldata[, eval(vrb) := paste0(fulldata[[f1]], fulldata[[f2]])] 
 }
@@ -120,7 +120,7 @@ categoryList<- NULL
 feature.names <- colnames(train)[colnames(train) %like% "^cat"]
 for (f in feature.names) {
   if (class(train[[f]])=="character") {
-    levels 		<- unique(c(train[[f]], test[[f]]))
+    levels 	<- unique(c(train[[f]], test[[f]]))
     train[[f]] 	<- as.integer(factor(train[[f]], levels=levels))
     test[[f]] 	<- as.integer(factor(test[[f]],  levels=levels))
   }
@@ -140,12 +140,12 @@ early_stop	<- 40
 predictions <- list()
 
 # Create Parameter list to be passed to XGBoost Algorithm
-xgbParams <- list(booster 		= "gbtree"
+xgbParams <- list(booster 	= "gbtree"
                    , objective 	= "reg:linear"
                    , subsample 	= 0.7
                    , max_depth 	= 12
-                   , eta 		= 0.028
-				   , colsample_bytree = 0.7
+                   , eta 	= 0.028
+		   , colsample_bytree = 0.7
                    , min_child_weight = 100)
  
 
@@ -168,15 +168,15 @@ xgbModel <- function (trainset, trainsetLabl, evalset, evalsetLabl, iter = 1) {
   evalMatrx  <- xgb.DMatrix(data=as.matrix(evalset), label=evalsetLabl)
 
   # Train XGBoost Model
-  xgb <- xgb.train(params 		= xgbParams
-                   , data 		= trainMatrx
+  xgb <- xgb.train(params 	= xgbParams
+                   , data 	= trainMatrx
                    , nrounds 	= 5000
                    , verbose 	= 1
-                   , feval 		= getMAE
+                   , feval 	= getMAE
                    , watchlist 	= list(eval = evalMatrx, train = trainMatrx)
                    , maximize 	= FALSE
-				   , early.stop.round = early_stop
-				   , print.every.n = print.every
+		   , early.stop.round = early_stop
+		   , print.every.n = print.every
                    )
   
   # Predict value for Evaluation dataset
@@ -191,18 +191,18 @@ xgbModel <- function (trainset, trainsetLabl, evalset, evalsetLabl, iter = 1) {
  
 # Create 10 fold model and predict "loss" values 
 for (i in 1:no_folds) {
-  predictions[[i]] <- xgbModel(trainset    	= as.data.frame(train[-folds[i][[1]], ])
-							, trainsetLabl 	= trainLabel[-folds[i][[1]],]$loss
-							, evalset  	 	= as.data.frame(train[folds[i][[1]], ])
-							, evalsetLabl  	= trainLabel[folds[i][[1]],]$loss
-							, iter 		= i
-						)
+  predictions[[i]] <- xgbModel(trainset = as.data.frame(train[-folds[i][[1]], ])
+				, trainsetLabl 	= trainLabel[-folds[i][[1]], ]$loss
+				, evalset  	= as.data.frame(train[folds[i][[1]], ])
+				, evalsetLabl  	= trainLabel[folds[i][[1]], ]$loss
+				, iter 		= i
+			)
 }
  
 # Convert Prediction List to dataframe
 predsDF <- as.data.frame(predictions)
 
 # Create Submission file for average of all the models
-submission 		<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
+submission 	<- read.csv("sample_submission.csv", colClasses = c("integer", "numeric"))
 submission$loss <- apply(predsDF, 1, function(x) { mean(x, na.rm=TRUE) })
-write.csv(submission, "Submission-6-XGB-Feature_10Fold.csv", row.names = FALSE, quote=FALSE)
+write.csv(submission, "Submission-6-XGB-Feature_10FoldCV.csv", row.names = FALSE, quote=FALSE)
