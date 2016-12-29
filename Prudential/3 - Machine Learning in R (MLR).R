@@ -52,9 +52,9 @@ lrn <- makeLearner("regr.xgboost")
 
 # Setup parameter values for XGBoost in Learner object
 lrn$par.vals <- list(nthread		= 5,
-			  nrounds       = 150,
+			  nrounds       = 150,  # 500
 			  print.every.n = 2,
-			  objective	= "count:poisson"
+			  objective	= "count:poisson"  #"reg:linear"
 )
 
 # For 'Missing values imputation', configure Learner with 'Median' algorithm.
