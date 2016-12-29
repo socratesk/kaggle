@@ -30,7 +30,7 @@ test 	<- read.csv("test.csv", header = TRUE)
 test$Response <- 0
 
 # Load custom learner function
-source("LearnerFunc")
+source("LearnerFunc.R")
 
 # Introduce Response feature
 train$Id <- NULL
@@ -47,33 +47,14 @@ testTask <- makeRegrTask(data = test, target = "Response")
 # Create dummy features for Test dataset
 testTask <- createDummyFeatures(testTask)
 
-# Create Evaluation Function for 'Square Quadratic Weighted Kappa - SQWK' Metrics
-SQWKfun <- function(x = seq(1.5, 7.5, by = 1), pred) {
-
-	preds	<- pred$data$response
-	true	<- pred$data$truth 
-	cuts	<- c(min(preds), x[1], x[2], x[3], x[4], x[5], x[6], x[7], max(preds))
-	preds	<- as.numeric(Hmisc::cut2(preds, cuts))
-	err	<- Metrics::ScoreQuadraticWeightedKappa(preds, true, 1, 8)
-  
-	return(-err)
-}
-
-# Create wrapper around Evaluation Metrics Function to use in cross validation function
-SQWK <- makeMeasure(id = "SQWK", minimize = FALSE, properties = c("regr"), best = 1, worst = 0,
-					fun = function(task, model, pred, feats, extra.args) {
-							return(-SQWKfun(x = seq(1.5, 7.5, by = 1), pred))
-					}
-)
-
 # Create Regression Learner object for XGBoost algorithm
 lrn <- makeLearner("regr.xgboost")
 
 # Setup parameter values for XGBoost in Learner object
 lrn$par.vals <- list(nthread		= 5,
-					  nrounds       = 150,
-					  print.every.n = 2,
-					  objective		= "count:poisson"
+			  nrounds       = 150,
+			  print.every.n = 2,
+			  objective	= "count:poisson"
 )
 
 # For 'Missing values imputation', configure Learner with 'Median' algorithm.
@@ -109,6 +90,6 @@ pred 	<- predict(mlrModel, testTask)
 preds 	<- as.numeric(Hmisc::cut2(pred$data$response, c(-Inf, optCuts$par, Inf)))
 
 # Create submission file
-submission	<- read.csv("sample_submission.csv", header = TRUE)
-submission$Response <- as.integer(preds)
+submission		<- read.csv("sample_submission.csv", header = TRUE)
+submission$Response 	<- as.integer(preds)
 write.csv(submission, "MLR-submission-3.csv", row.names = FALSE)
