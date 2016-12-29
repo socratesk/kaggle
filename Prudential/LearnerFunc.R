@@ -63,3 +63,22 @@ predictLearner.regr.xgboost = function(.learner, .model, .newdata, ...) {
   m = .model$learner.model
   xgboost::predict(m, newdata = data.matrix(.newdata), ...)
 }
+
+# Create Evaluation Function for 'Square Quadratic Weighted Kappa - SQWK' Metrics
+SQWKfun <- function(x = seq(1.5, 7.5, by = 1), pred) {
+
+	preds	<- pred$data$response
+	true	<- pred$data$truth 
+	cuts	<- c(min(preds), x[1], x[2], x[3], x[4], x[5], x[6], x[7], max(preds))
+	preds	<- as.numeric(Hmisc::cut2(preds, cuts))
+	err	<- Metrics::ScoreQuadraticWeightedKappa(preds, true, 1, 8)
+  
+	return(-err)
+}
+
+# Create wrapper around Evaluation Metrics Function to use in cross validation function
+SQWK <- makeMeasure(id = "SQWK", minimize = FALSE, properties = c("regr"), best = 1, worst = 0,
+					fun = function(task, model, pred, feats, extra.args) {
+							return(-SQWKfun(x = seq(1.5, 7.5, by = 1), pred))
+					}
+)
