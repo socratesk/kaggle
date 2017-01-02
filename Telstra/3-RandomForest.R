@@ -107,29 +107,29 @@ levels(trainpredictor) <- make.names(levels(factor(trainpredictor)))
 train$fault_severity <- NULL
 
 # Create 'Train Control' object
-traincontrol <- trainControl(method 		= 'repeatedcv'
-							, number 		= 10 	# No of folds for Cross-validation
-							, repeats 		= 8 	# How many times want to repeat the folds
-							, verboseIter	= FALSE 
-							, returnResamp	= 'all' # Performance measures to save
-							, classProbs	= TRUE 	# For multi-class probability
-						) 
+traincontrol <- trainControl(method	= 'repeatedcv'
+			, number 	= 10 	# No of folds for Cross-validation
+			, repeats 	= 8 	# How many times want to repeat the folds
+			, verboseIter	= FALSE 
+			, returnResamp	= 'all' # Performance measures to save
+			, classProbs	= TRUE 	# For multi-class probability
+		) 
 
 # Create 'Tune Grid' Object
-tunegrid <- expand.grid(mtry 		= 5
-						, shrinkage = 0.01
-					) 
+tunegrid <- expand.grid(mtry	= 5
+		, shrinkage 	= 0.01
+	) 
 
 # Buid Random Forest Model
-rfModel <- randomForest(x		= train
-					, y			= trainpredictor
-					, ntree		= 1200
-					, replace	= FALSE
-					, do.trace	= TRUE
-					, trControl = traincontrol
-					, tuneGrid 	= tunegrid
-					, importance= TRUE
-				)
+rfModel <- randomForest(x	= train
+		, y		= trainpredictor
+		, ntree		= 1200
+		, replace	= FALSE
+		, do.trace	= TRUE
+		, trControl 	= traincontrol
+		, tuneGrid 	= tunegrid
+		, importance	= TRUE
+	)
 
 # Predict probabilities for Test dataset
 ypred   <- predict(rfModel, test, type="prob")
