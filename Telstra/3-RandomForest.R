@@ -18,6 +18,7 @@ setwd("C:/home/kaggle/Telstra")
 library(reshape2)
 library(methods)
 library(caret)
+library(randomForest)
 
 # Set seed for reproducibility
 set.seed(220469)
