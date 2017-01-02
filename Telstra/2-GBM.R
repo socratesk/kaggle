@@ -108,18 +108,18 @@ train$fault_severity <- NULL
 
 # Create 'Train Control' object
 traincontrol <- trainControl(method 		= 'repeatedcv'
-			, number 		= 10
-			, repeats 		= 10
+			, number 		= 10    # No of folds for Cross-validation
+			, repeats 		= 5	# How many times want to repeat the folds
 			, verboseIter 		= FALSE
-			, returnResamp		= 'all'
-			, classProbs		= TRUE 
+			, returnResamp		= 'all'	# Performance measures to save
+			, classProbs		= TRUE	# For multi-class probability
 			#, summaryFunction	= MCLogLoss
 		) 
 
 # Create 'Train Grid' Object
 traingrid <-  expand.grid(interaction.depth 	= 6 	# c(1, 5, 9),
                        , n.trees 		= 60 	# (1:30)*50
-                       , shrinkage 		= 0.1
+                       , shrinkage 		= 0.1	# Learning Rate
                        , n.minobsinnode 	= 10 	# 20
 		)
 
