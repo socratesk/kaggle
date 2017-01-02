@@ -130,38 +130,35 @@ gc()
 
 
 # Create 'Train Control' object
-traincontrol <- trainControl(method 		= 'repeatedcv'
-							, number 		= 10 	# No of folds for Cross-validation
-							, repeats 		= 10 	# How many times want to repeat the folds
-							, verboseIter	= FALSE 
-							, returnResamp	= 'all' # Performance measures to save
-							, classProbs	= TRUE 	# For multi-class probability
-						) 
+traincontrol <- trainControl(method 	= 'repeatedcv'
+			, number 	= 10 	# No of folds for Cross-validation
+			, repeats 	= 10 	# How many times want to repeat the folds
+			, verboseIter	= FALSE 
+			, returnResamp	= 'all' # Performance measures to save
+			, classProbs	= TRUE 	# For multi-class probability
+		) 
 
 # Create 'Tune Grid' Object
-tunegrid <- expand.grid(mtry 		= 5
-						, shrinkage = 0.001
-					) 
+tunegrid <- expand.grid(mtry = 5, shrinkage = 0.001) 
 
 # Buid Random Forest Model
-rfModel <- randomForest(x		= trainRF
-					, y			= targetRF
-					, ntree		= 800
-					, replace	= FALSE
-					, do.trace	= TRUE
-					, trControl = traincontrol
-					, tuneGrid 	= tunegrid
-					, importance= TRUE
-				)
+rfModel <- randomForest(x	= trainRF
+		, y		= targetRF
+		, ntree		= 800
+		, replace	= FALSE
+		, do.trace	= TRUE
+		, trControl 	= traincontrol
+		, tuneGrid 	= tunegrid
+		, importance	= TRUE
+	)
 
 # Predict probabilities for Test dataset
 trainRFPreds	<- format(predict(rfModel, trainGBM, type="prob"), scientific=FALSE)   # Training set for GBM Model
-testRFPreds		<- format(predict(rfModel, test, type="prob"), scientific=FALSE)
+testRFPreds	<- format(predict(rfModel, test, type="prob"), scientific=FALSE)
 
 # Stack Random Forest predicted values on to the next 40% of Train dataset
 trainGBM <- cbind(trainGBM, as.data.frame(trainRFPreds))
 test	 <- cbind(test, 	as.data.frame(testRFPreds))
-
 
 # Remove RF model and garbage collect
 rfModel <- NULL
