@@ -116,8 +116,8 @@ traincontrol <- trainControl(method 		= 'repeatedcv'
 			#, summaryFunction	= MCLogLoss
 		) 
 
-# Create 'Train Grid' Object
-traingrid <-  expand.grid(interaction.depth 	= 6 	# c(1, 5, 9),
+# Create 'Tune Grid' Object
+tunegrid <-  expand.grid(interaction.depth 	= 6 	# c(1, 5, 9),
                        , n.trees 		= 60 	# (1:30)*50
                        , shrinkage 		= 0.1	# Learning Rate
                        , n.minobsinnode 	= 10 	# 20
@@ -128,7 +128,7 @@ gbmModel <- train(x 		= train
 		, y 		= trainpredictor
 		, method 	= 'gbm'
 		, trControl 	= traincontrol
-		, tuneGrid 	= traingrid
+		, tuneGrid 	= tunegrid
 		, verbose 	= FALSE
 	     )
 
